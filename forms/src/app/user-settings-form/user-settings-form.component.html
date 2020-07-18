@@ -1,0 +1,130 @@
+
+<div class="container">
+    <h2>User settings</h2>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input id="name" name="name" class="form-control" 
+                placeholder="Name" [(ngModel)]="userSettings.name" required #nameField="ngModel"
+                [class.field-error]="form.submitted && nameField.invalid"
+                (blur)="onBlur(nameField)">
+            <div class="alert alert-danger" 
+                [hidden]="!form.submitted || nameField.valid">
+                Enter a name</div>        
+            <!--pattern="B.*"
+                minlength="3"
+                maxlenght="3"
+                type="number" -- min="3" -- max=""300-->
+        </div>
+
+        <button class="btn-primary btn" type="button" name="singleModel"
+            [(ngModel)]="singleModel" btnCheckbox
+            btnCheckboxTrue="On" btnCheckboxFalse="Off">
+            {{singleModel}}
+        </button>
+
+        <div class="form-check form-group">
+            <input type="checkbox" name="emailOffers" id="emailOffers" class="form-check-input" [(ngModel)]="userSettings.emailOffers">
+            <label for="emailOffers" class="form-check-label">Email Special Offers</label>
+        </div>
+
+
+        <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <input type="text" 
+                placeholder="Start Date"
+                class="form-control" 
+                [(ngModel)]="startDate" 
+                    name="startDate" id="startDate" bsDatepicker>
+        </div>
+
+        <div class="form-group">
+            <label for="startTime">Start Time</label>
+            <timepicker [(ngModel)]="startTime" name="startTime">
+            </timepicker>
+        </div>
+        
+
+        <div class="form-group">
+            User Rating
+            <rating [(ngModel)]="userRating" [max]="maxRating" [readonly]="isReadonly" 
+                name="userRating" id="userRating" [titles]="['one','two','three']"></rating>
+        </div>
+
+        User Rating : {{userRating}}
+
+        <p>User Interface Style</p>
+        <div class="form-group">
+            <div class="btn-group">
+                <label  class="btn btn-primary" [(ngModel)]="userSettings.interfaceStyle" name="interfaceStyle"
+                        btnRadio="Light" tabindex="0" role="button">Light</label>
+                <label  class="btn btn-primary" [(ngModel)]="userSettings.interfaceStyle" name="interfaceStyle"
+                        btnRadio="Medium" tabindex="0" role="button">Medium</label>
+                <label  class="btn btn-primary" [(ngModel)]="userSettings.interfaceStyle" name="interfaceStyle"
+                        btnRadio="Dark" tabindex="0" role="button">Dark</label>
+            </div>
+
+            <!-- <div class="form-check">
+                <input type="radio" name="interfaceStyle" class="form-check-input" 
+                value="light" id="lightInterface"  [(ngModel)]="userSettings.interfaceStyle">
+                <label for="lightInterface" class="form-check-label">Light</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" name="interfaceStyle" class="form-check-input" 
+                value="medium" id="mediumInterface"  [(ngModel)]="userSettings.interfaceStyle">
+                <label for="lightInterface" class="form-check-label">Medium</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" name="interfaceStyle" class="form-check-input" 
+                value="dark" id="darkInterface"  [(ngModel)]="userSettings.interfaceStyle">
+                <label for="lightInterface" class="form-check-label">Dark</label>
+            </div> -->
+        </div>
+
+        <div class="form-group">
+            <label for="subscriptionType">Subscription Type</label>
+            <select  id="subscriptionType" class="form-control" name="subscriptionType" [(ngModel)]="userSettings.subscriptionType">
+                <option *ngFor="let type of subscriptionTypes | async">
+                    {{type}}
+                </option>
+                
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea name="notes" id="notes" 
+             rows="3" class="form-control" [(ngModel)]="userSettings.notes"></textarea>
+        </div>
+
+        <!-- <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+
+        <div class="form-group">
+            <label for="testing">Testing</label>
+            <input type="email" name="testing" id="testing" class="form-control">
+        </div> -->
+        <div class="alert-danger alert" [hidden]="!postError">{{postErrorMessage}}</div>
+        <button class="btn btn-primary">send</button>
+    </form>
+</div>
+
+{{form.value | json}}
+<hr>
+{{userSettings.name}}
+<br>
+{{userSettings.emailOffers}}
+<br>
+{{userSettings.interfaceStyle}}
+<br>
+{{userSettings.subscriptionType}}
+<br>
+{{userSettings.notes}}
+
+
+<hr>
+<br>
+{{tiendas | json}}
